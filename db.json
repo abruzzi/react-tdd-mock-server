@@ -1,7 +1,17 @@
 {
-	"books": [
-		{"title": "Building Microservices", "author": "Sam Newman", "price": 100, "id": 1, "description": "Building Microservices"}, 
-		{"title": "Domain Driven Design", "author": "Eric Evans","price": 101, "id": 2},
-		{"title": "Refactoring", "author": "Martin Fowler", "price": 102, "id": 3}
-	]
+  "books": [],
+  "reviews": [
+    {
+      "name": "J",
+      "content": "Euxn",
+      "bookId": 1,
+      "id": 1
+    },
+    {
+      "name": "J",
+      "content": "Euxn",
+      "bookId": 1,
+      "id": 2
+    }
+  ]
 }

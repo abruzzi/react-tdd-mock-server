@@ -7,9 +7,12 @@ const middlewares = jsonServer.defaults()
 
 const _ = require('lodash')
 
-function format(data, meta) {
-	const newData = Object.assign({}, {data}, {meta})
-	return newData
+router.render = function (req, res) {
+  var data = res.locals.data
+  if(data.bookId) {
+    data.bookId = parseInt(data.bookId)
+  }
+  res.jsonp(data)
 }
 
 function parseQueryStringToJson(query) {
@@ -43,7 +46,6 @@ server.use((req, res, next) => {
   next()
 })
 
-
 server.use((req, res, next) => {
   if(req.method === 'DELETE' && req.query['_cleanup']) {
     const db = router.db
@@ -57,8 +59,12 @@ server.use((req, res, next) => {
 server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
+server.use(jsonServer.rewriter({
+  "/books/:id": "/books/:id?_embed=reviews"
+}))
 
 server.use(router)
+
 server.listen(8080, () => {
   console.log('JSON Server is running')
 })
