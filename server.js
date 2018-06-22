@@ -56,7 +56,7 @@ server.use((req, res, next) => {
     db.set(req.entity, []).write()
 
     if(relations[req.entity]) {
-      db.set(db[relations[req.entity]], []).write()
+      db.set(relations[req.entity], []).write()
     }
 
     res.sendStatus(204)

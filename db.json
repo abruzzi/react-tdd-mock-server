@@ -1,18 +1,4 @@
 {
   "books": [],
-  "reviews": [
-    {
-      "name": "Juntao Qiu",
-      "content": "Excellent works!",
-      "bookId": 1,
-      "id": 1
-    },
-    {
-      "name": "Juntao Qiu",
-      "content": "Excellent works!",
-      "bookId": 1,
-      "id": 2
-    }
-  ],
-  "undefined": []
+  "reviews": []
 }
