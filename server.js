@@ -46,10 +46,19 @@ server.use((req, res, next) => {
   next()
 })
 
+const relations = {
+  'books': 'reviews'
+}
+
 server.use((req, res, next) => {
   if(req.method === 'DELETE' && req.query['_cleanup']) {
     const db = router.db
     db.set(req.entity, []).write()
+
+    if(relations[req.entity]) {
+      db.set(db[relations[req.entity]], []).write()
+    }
+
     res.sendStatus(204)
   } else {
     next()  
@@ -59,9 +68,14 @@ server.use((req, res, next) => {
 server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
-server.use(jsonServer.rewriter({
-  "/books/:id": "/books/:id?_embed=reviews"
-}))
+function buildRewrite(relations) {
+  return _.reduce(relations, (sum, embed, resources) => {
+    sum[`/${resources}/:id`] = `/${resources}/:id?_embed=${embed}`
+    return sum;
+  }, {})
+}
+
+server.use(jsonServer.rewriter(buildRewrite(relations)))
 
 server.use(router)
 
