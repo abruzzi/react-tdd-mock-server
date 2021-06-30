@@ -5,6 +5,8 @@ const server = jsonServer.create()
 const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
+// cambio esencial
+
 const _ = require('lodash')
 
 router.render = function (req, res) {
